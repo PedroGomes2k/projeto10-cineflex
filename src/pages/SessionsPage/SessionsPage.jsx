@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import axios from "axios"
 
 export default function SessionsPage() {
 
@@ -66,28 +67,38 @@ const SessionContainer = styled.div`
     font-size: 20px;
     color: #293845;
     padding: 0 20px;
+    
 `
 const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin: 20px 0;
     button {
+        width: 83px;
+        height: 43px;
         margin-right: 20px;
+        
+        color: #FFFFFF;
+        background-color: #E8833A;
+        border-radius: 3px ;
     }
     a {
+        
         text-decoration: none;
     }
 `
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
-    background-color: #C3CFD9;
+    background-color: #DFE6ED;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 20px;
     position: fixed;
     bottom: 0;
+    margin-left: -7px;
+    border: 1px solid #9EADBA;
 
     div:nth-child(1) {
         box-shadow: 0px 2px 4px 2px #0000001A;

@@ -1,32 +1,43 @@
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 export default function HomePage() {
+    const [filmes, setFilmes] = useState([])
+
+    useEffect(() => {
+        const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies"
+        const promise = axios.get(URL)
+
+        promise.then((resposta) => {
+            setFilmes(resposta.data)
+        })
+        promise.catch((erro) => {
+            console.log(erro.resposta.data)
+        })
+
+    }, [])
+
+    function Proximo(){
+        return(
+            console.log("certinho")
+        )
+    }
+
     return (
         <PageContainer>
             Selecione o filme
 
             <ListContainer>
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
+                {filmes.map(props =>
+                    <MovieContainer data-test="movie">
+                        <img onClick={Proximo} key={props.posterURL} src={props.posterURL} alt="poster" />
+                    </MovieContainer>
+                )}
             </ListContainer>
 
         </PageContainer>
     )
 }
-
 const PageContainer = styled.div`
     display: flex;
     flex-direction: column;

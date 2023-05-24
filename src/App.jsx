@@ -3,16 +3,18 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import axios from "axios"
 
 export default function App() {
+    axios.defaults.headers.common['Authorization'] = 'ppKoYP82aNEpqAi1j0w5vqDw';
     return (
         <>
-           <NavContainer>CINEFLEX</NavContainer>
+            <NavContainer>CINEFLEX</NavContainer>
 
-            <HomePage />
-            {/* <SeatsPage /> */}
+            {<HomePage />}
             {/* <SessionsPage /> */}
-            {/* <SuccessPage /> */}
+            { /*<SeatsPage />*/}
+            { /*<SuccessPage />*/}
         </>
     )
 }
@@ -29,6 +31,7 @@ const NavContainer = styled.div`
     font-size: 34px;
     position: fixed;
     top: 0;
+    margin-left: -7px;
     a {
         text-decoration: none;
         color: #E8833A;
