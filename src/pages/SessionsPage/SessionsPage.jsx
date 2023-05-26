@@ -10,12 +10,14 @@ export default function SessionsPage() {
     console.log(parametros.idFilme)
 
     useEffect(() => {
-        const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/ID_DO_FILME/showtimes/${parametros.idFilme}`
+        const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${parametros.idFilme}/showtimes`
         const promise = axios.get(URL)
-      
+
         promise.then((resposta) => {
-            
-            console.log(resposta.data)
+
+            setFilme(resposta.data)
+
+
         })
         promise.catch((erro) => {
             console.log(erro.resposta.data)
@@ -23,20 +25,29 @@ export default function SessionsPage() {
 
     }, [])
 
+    if (filme === []) {
+        return (
+            <div>Carregando...</div>
+        )
+
+    }
+
     return (
         <PageContainer>
             Selecione o horário
 
             <div>
 
+
                 <SessionContainer>
-                    {filme.date}
-                    <Link to={"/acentos"} >
+
+                    {filme.weekday}-{filme.date}
+
                     <ButtonsContainer>
                         <button>{filme.name}</button>
                         <button>{filme.name}</button>
                     </ButtonsContainer>
-                    </Link>
+
                 </SessionContainer>
 
 
@@ -50,10 +61,10 @@ export default function SessionsPage() {
                     <p>{filme.title}</p>
                 </div>
             </FooterContainer>
-        
+
         </PageContainer>
     )
-    
+
     console.log("aoba")
 }
 
@@ -79,6 +90,7 @@ const SessionContainer = styled.div`
     font-size: 20px;
     color: #293845;
     padding: 0 20px;
+
     
 `
 const ButtonsContainer = styled.div`
