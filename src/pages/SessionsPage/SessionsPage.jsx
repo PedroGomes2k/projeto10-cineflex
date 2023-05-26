@@ -37,20 +37,21 @@ export default function SessionsPage() {
             Selecione o horário
 
             <div>
+                {filme.map(props =>
+                    <Link>
+                        <SessionContainer>
 
+                            {props.weekday}-{props.date}
 
-                <SessionContainer>
+                            <ButtonsContainer>
+                                <button>{props.name}</button>
+                                <button>{props.name}</button>
+                            </ButtonsContainer>
 
-                    {filme.weekday}-{filme.date}
+                        </SessionContainer>
 
-                    <ButtonsContainer>
-                        <button>{filme.name}</button>
-                        <button>{filme.name}</button>
-                    </ButtonsContainer>
-
-                </SessionContainer>
-
-
+                    </Link>
+                )}
             </div>
 
             <FooterContainer>
@@ -65,7 +66,6 @@ export default function SessionsPage() {
         </PageContainer>
     )
 
-    console.log("aoba")
 }
 
 const PageContainer = styled.div`
