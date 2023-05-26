@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function HomePage() {
@@ -17,24 +18,29 @@ export default function HomePage() {
 
     }, [])
 
-    function Proximo(){
-        return(
-            console.log("certinho")
+    if (filmes === []) {
+        return (
+            <div>Carregando...</div>
         )
+
     }
 
     return (
         <PageContainer>
             Selecione o filme
+            {filmes.map(props =>
+                <Link to={`/sessao/${props.id}`}  key={props.id}>
+                
+                    <ListContainer >
 
-            <ListContainer>
-                {filmes.map(props =>
-                    <MovieContainer data-test="movie">
-                        <img onClick={Proximo} key={props.posterURL} src={props.posterURL} alt="poster" />
-                    </MovieContainer>
-                )}
-            </ListContainer>
+                        <MovieContainer data-test="movie" >
+                            <img src={props.posterURL} alt="poster" />
+                        </MovieContainer>
 
+                    </ListContainer>
+                   
+                </Link>
+             )}
         </PageContainer>
     )
 }

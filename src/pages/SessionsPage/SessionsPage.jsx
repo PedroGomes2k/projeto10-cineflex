@@ -1,48 +1,60 @@
 import styled from "styled-components"
 import axios from "axios"
+import { useState, useEffect } from "react"
+import { useParams, Link } from "react-router-dom"
 
 export default function SessionsPage() {
+    const [filme, setFilme] = useState([])
+
+    const parametros = useParams()
+    console.log(parametros.idFilme)
+
+    useEffect(() => {
+        const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/ID_DO_FILME/showtimes/${parametros.idFilme}`
+        const promise = axios.get(URL)
+      
+        promise.then((resposta) => {
+            
+            console.log(resposta.data)
+        })
+        promise.catch((erro) => {
+            console.log(erro.resposta.data)
+        })
+
+    }, [])
 
     return (
         <PageContainer>
             Selecione o horário
+
             <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
 
                 <SessionContainer>
-                    Sexta - 03/03/2023
+                    {filme.date}
+                    <Link to={"/acentos"} >
                     <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
+                        <button>{filme.name}</button>
+                        <button>{filme.name}</button>
                     </ButtonsContainer>
+                    </Link>
                 </SessionContainer>
 
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
+
             </div>
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={filme.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{filme.title}</p>
                 </div>
             </FooterContainer>
-
+        
         </PageContainer>
     )
+    
+    console.log("aoba")
 }
 
 const PageContainer = styled.div`
