@@ -26,21 +26,22 @@ export default function HomePage() {
     }
 
     return (
-        <PageContainer>
+        <PageContainer >
             Selecione o filme
-            {filmes.map(props =>
-                <Link to={`/sessao/${props.id}`}  key={props.id}>
-                
-                    <ListContainer >
+            
 
-                        <MovieContainer data-test="movie" >
-                            <img src={props.posterURL} alt="poster" />
-                        </MovieContainer>
+                <ListContainer >
+                    {filmes.map(props =>
+                        <Link to={`/sessao/${props.id}`}   key={props.id}>
+                        <MovieContainer >
+                            <img src={props.posterURL} alt="poster"  data-test="movie"  />
+                        </MovieContainer> 
+                        </Link>
+                    )}
+                </ListContainer>
 
-                    </ListContainer>
-                   
-                </Link>
-             )}
+           
+
         </PageContainer>
     )
 }
