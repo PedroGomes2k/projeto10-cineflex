@@ -5,9 +5,10 @@ import { useParams, Link } from "react-router-dom"
 
 export default function SessionsPage() {
     const [filme, setFilme] = useState([])
+    const [horario, setHorario] = useState(undefined)
 
     const parametros = useParams()
-    console.log(parametros.idFilme)
+
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${parametros.idFilme}/showtimes`
@@ -16,6 +17,7 @@ export default function SessionsPage() {
         promise.then((resposta) => {
 
             setFilme(resposta.data)
+            setHorario(resposta.data)
 
 
         })
@@ -25,7 +27,7 @@ export default function SessionsPage() {
 
     }, [])
 
-    if (filme === []) {
+    if (horario === undefined) {
         return (
             <div>Carregando...</div>
         )
@@ -37,20 +39,24 @@ export default function SessionsPage() {
             Selecione o horário
 
             <div>
-                {filme.map(props =>
-                    <Link>
-                        <SessionContainer>
+                {horario.days.map(props =>
 
-                            {props.weekday}-{props.date}
+                    <SessionContainer key={props.date}>
 
-                            <ButtonsContainer>
-                                <button>{props.name}</button>
-                                <button>{props.name}</button>
-                            </ButtonsContainer>
+                        <p> {`${props.weekday} - ${props.date}`}</p>
 
-                        </SessionContainer>
 
-                    </Link>
+                        <ButtonsContainer >
+                            {props.showtimes.map((props) =>
+                                <Link to={`/assentos/${props.id}`} key={props.name} data-test="showtime">
+                                    <button>{props.name}</button>
+                                </Link>
+                            )}
+                        </ButtonsContainer>
+
+                    </SessionContainer>
+
+
                 )}
             </div>
 
