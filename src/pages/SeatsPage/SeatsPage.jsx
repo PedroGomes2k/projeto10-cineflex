@@ -4,7 +4,7 @@ import styled from "styled-components"
 import axios from "axios"
 
 export default function SeatsPage() {
-    const [sessao, setSessao] = useState([])
+    const [sessao, setSessao] = useState(undefined)
     const [acento, setAcento] = useState([])
     const [filme, setFilme] = useState([])
     const [nome, setNome] = useState([])
@@ -36,6 +36,12 @@ export default function SeatsPage() {
 
     }, [])
 
+    if (sessao === undefined) {
+        return (
+            <div>Carregando...</div>
+        )
+
+        }
     console.log(acento)
     return (
 

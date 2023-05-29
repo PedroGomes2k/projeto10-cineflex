@@ -27,10 +27,10 @@ export default function SessionsPage() {
 
     }, [])
 
-    if (horario === undefined) {
-        return (
-            <div>Carregando...</div>
-        )
+        if (horario === undefined) {
+            return (
+                <div>Carregando...</div>
+            )
 
     }
 
@@ -41,7 +41,7 @@ export default function SessionsPage() {
             <div>
                 {horario.days.map(props =>
 
-                    <SessionContainer key={props.date}>
+                    <SessionContainer key={props.date} data-teste="movie-day">
 
                         <p> {`${props.weekday} - ${props.date}`}</p>
 
@@ -60,7 +60,7 @@ export default function SessionsPage() {
                 )}
             </div>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={filme.posterURL} alt="poster" />
                 </div>
