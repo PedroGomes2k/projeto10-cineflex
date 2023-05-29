@@ -43,24 +43,24 @@ export default function SeatsPage() {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                {acento.map((props) => 
+                {acento.map(props => {
+                    props.isAvailable === true ?
+                    <SeatItem data-test="seat"
+                        key={props.id}
+                    >
+                        {props.name}
 
-                    {
-                        props.isAvailable === true ? (
+                    </SeatItem>
+                    
+                    :
 
-                            <SeatItem key={props.id}>
+                    <SeatItemIndisponivel data-test="seat"
+                        key={props.id}
+                    >
+                        {props.name}
 
-                                {props.name}
-
-                            </SeatItem>) :
-                            <SeatItemIndisponivel data-test="seat" key={props.id} onClick={() => alert("Acento indisponivel!! Escolha outro porfavor :)")}>
-
-                                {props.name}
-                            </SeatItemIndisponivel>
-                    }
-
-
-                
+                    </SeatItemIndisponivel>
+                }
 
                 )}
 
@@ -192,8 +192,21 @@ const CaptionItem = styled.div`
     font-size: 12px;
 `
 const SeatItem = styled.div`
-    border: 1px solid blue;         
-    background-color: lightblue;    
+    border: 1px solid  #7B8B99;         
+    background-color: #C3CFD9;    
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    font-family: 'Roboto';
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 3px;
+`
+const SeatItemIndisponivel = styled.div`
+    border: 1px solid #F7C52B;         
+    background-color:  #FBE192;    
     height: 25px;
     width: 25px;
     border-radius: 25px;
