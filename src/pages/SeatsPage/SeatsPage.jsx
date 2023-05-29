@@ -9,7 +9,7 @@ export default function SeatsPage() {
     const [filme, setFilme] = useState([])
     const [nome, setNome] = useState([])
     const [cpf, setCPF] = useState([])
-    const [cor, setcor] = useState([])
+    const [cor, setCor] = useState([])
 
 
 
@@ -26,7 +26,7 @@ export default function SeatsPage() {
             setFilme(resposta.data.movie)
             setSessao(resposta.data.day)
             setAcento(resposta.data.seats)
-
+            setCor(resposta.data.seats)
         }
         )
         promise.catch((erro) => {
@@ -41,32 +41,45 @@ export default function SeatsPage() {
             <div>Carregando...</div>
         )
 
+    }
+
+    function acentoSelecionado(escolhido) {
+        if (escolhido) {
+            const selecionado = acento.some(s => s.id === escolhido.id)
+
+            if (selecionado) { // Retira o selecionado
+                const novoAcento = acento.some(s => s.id !== escolhido.id)
+            } else { // Adicionando o selecionado
+                setAcento([...acento, escolhido])
+            }
         }
-    console.log(acento)
+        else { alert("Esse acento ja foi escolhido!!! Escolha outro porfavor :)") }
+    }
+    function verificacao() {
+
+        if (selecionado) {
+            setCor(<SeatItemEscolhido />)
+        } else if (isAvailable) {
+            setCor(<SeatItem />)
+        } else {
+            setCor(<SeatItemIndisponivel />)
+        }
+    }
+
     return (
 
         <PageContainer>
             Selecione o(s) assento(s)
 
-            <SeatsContainer>
-                {acento.map(props => {
-                    props.isAvailable === true ?
+            <SeatsContainer >
+                {acento.map(props =>
                     <SeatItem data-test="seat"
                         key={props.id}
+                        onClick={acentoSelecionado}
                     >
                         {props.name}
 
                     </SeatItem>
-                    
-                    :
-
-                    <SeatItemIndisponivel data-test="seat"
-                        key={props.id}
-                    >
-                        {props.name}
-
-                    </SeatItemIndisponivel>
-                }
 
                 )}
 
@@ -93,8 +106,9 @@ export default function SeatsPage() {
 
                 CPF do Comprador:
                 <input placeholder="Digite seu CPF..." />
-
-                <button>Reservar Assento(s)</button>
+                <Link to={"/sucesso"}>
+                <button >Reservar Assento(s)</button>
+                </Link>
             </FormContainer>
 
 
@@ -213,6 +227,19 @@ const SeatItem = styled.div`
 const SeatItemIndisponivel = styled.div`
     border: 1px solid #F7C52B;         
     background-color:  #FBE192;    
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    font-family: 'Roboto';
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 3px;
+`
+const SeatItemEscolhido = styled.div`
+    border: 1px solid #0E7D71;         
+    background-color:   #1AAE9E;    
     height: 25px;
     width: 25px;
     border-radius: 25px;
