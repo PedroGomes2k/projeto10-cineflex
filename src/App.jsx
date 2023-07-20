@@ -3,16 +3,27 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import { Link, Route, BrowserRouter, Routes } from "react-router-dom"
+import { useState } from "react"
 
 export default function App() {
+
     return (
         <>
-           <NavContainer>CINEFLEX</NavContainer>
+            <BrowserRouter>
+                <Link to={"/"}>
+                    <NavContainer>CINEFLEX</NavContainer>
+                </Link>
+                <Routes>
+                    <Route path="/" element={<HomePage  />}></Route>
+                    <Route path="/sessoes/:idFilme" element={<SessionsPage />}></Route>
+                    <Route path="/assentos/:idSessao" element={<SeatsPage />}></Route>
+                    <Route path="/sucesso" element={<SuccessPage />}></Route>
 
-            <HomePage />
-            {/* <SeatsPage /> */}
-            {/* <SessionsPage /> */}
-            {/* <SuccessPage /> */}
+                </Routes>
+
+
+            </BrowserRouter>
         </>
     )
 }
