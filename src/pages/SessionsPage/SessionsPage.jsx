@@ -2,19 +2,17 @@ import styled from "styled-components"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import Session from "../../components/Session"
 
 export default function SessionsPage() {
 
     const { idFilme } = useParams()
     const [session, setSession] = useState([])
     const [time, setTime] = useState([])
-
-
-
-
-    const URL = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
+    const { posterURL, title } = session
 
     useEffect(() => {
+        const URL = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
 
 
         URL.then((resposta) =>
@@ -32,44 +30,21 @@ export default function SessionsPage() {
         )
 
 
-
     }, [])
-
-    const { posterURL, title } = session
-    const { weekday, id, date ,days } = time
-
     
-
-
-
 
     return (
         <PageContainer>
             Selecione o horário
 
-
-            <div >
-                <SessionContainer >
-                    { } - { }
-
-
-                    <ButtonsContainer>
-
-                        <button>{ }</button>
-                        <button>15:00</button>
-
-
-                    </ButtonsContainer>
-
-                </SessionContainer>
-
-            </div>
-
-
-
-
-
-
+            {time.map((t) =>
+                <Session
+                    key={t.id}
+                    date={t.date}
+                    weekday={t.weekday}
+                    showtimes={t.showtimes}
+                />
+            )}
 
 
             <FooterContainer >
@@ -100,35 +75,7 @@ const PageContainer = styled.div`
         margin-top: 20px;
     }
 `
-const SessionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
-    padding: 0 20px;
-`
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
-    button {
-        width: 82px;
-        height: 43px;
-        margin-right: 20px;
 
-        background-color: #E8833A;
-        color: #FFFFFF;
-
-        border: #E8833A;
-        border-radius: 3px;
-        font-weight: bold;
-    }
-    a {
-        text-decoration: none;
-    }
-`
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
