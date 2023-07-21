@@ -25,29 +25,35 @@ export default function HomePage(props) {
     }, [])
 
 
+    if(movies === undefined){
+        return(
+           " Carregando filmes ..."
+        )
+    } else {
+        return (
+            <PageContainer>
+                Selecione o filme
+    
+    
+                <ListContainer>
+                    {movies.map((movie) =>
+                        <Link to={`sessoes/${movie.id}`} key={movie.id}>
+                            <MovieContainer>
+                                <img src={movie.posterURL} alt="poster" />
+                            </MovieContainer>
+    
+                        </Link>
+                    )
+                    }
+                </ListContainer>
+    
+    
+            </PageContainer >
+        )
+    }
 
 
-
-    return (
-        <PageContainer>
-            Selecione o filme
-
-
-            <ListContainer>
-                {movies.map((movie) =>
-                    <Link to={`sessoes/${movie.id}`} key={movie.id}>
-                        <MovieContainer>
-                            <img src={movie.posterURL} alt="poster" />
-                        </MovieContainer>
-
-                    </Link>
-                )
-                }
-            </ListContainer>
-
-
-        </PageContainer >
-    )
+   
 }
 
 const PageContainer = styled.div`

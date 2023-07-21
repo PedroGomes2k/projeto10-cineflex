@@ -3,12 +3,14 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 
-export default function SessionsPage(props) {
+export default function SessionsPage() {
 
     const { idFilme } = useParams()
+    const [session, setSession] = useState([])
     const [time, setTime] = useState([])
-    
-    
+
+
+
 
     const URL = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
 
@@ -16,44 +18,70 @@ export default function SessionsPage(props) {
 
 
         URL.then((resposta) =>
-        console.log(resposta.data)  
-        
+            setSession(resposta.data)
+
         )
+
         URL.catch((erro) =>
             console.log(erro.error)
         )
 
+        URL.then((resposta) =>
+            setTime(resposta.data.days)
+
+        )
+
+
+
     }, [])
+
+    const { posterURL, title } = session
+    const { weekday, id, date ,days } = time
+
+    
+
 
 
 
     return (
         <PageContainer>
             Selecione o horário
-            {time.map((t) =>
-            <div key={t.id}>
-                <div >
-                    <SessionContainer >
-                        {t.days.weekday} - {t.date}
-                        <ButtonsContainer>
-                            <button>14:00</button>
-                            <button>15:00</button>
-                        </ButtonsContainer>
-                    </SessionContainer>
 
-                </div>
-           
+
+            <div >
+                <SessionContainer >
+                    { } - { }
+
+
+                    <ButtonsContainer>
+
+                        <button>{ }</button>
+                        <button>15:00</button>
+
+
+                    </ButtonsContainer>
+
+                </SessionContainer>
+
+            </div>
+
+
+
+
+
+
+
 
             <FooterContainer >
                 <div>
-                    <img src={t.posterURL} alt="poster" />
+                    <img src={posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>{t.title}</p>
+                    <p>{title}</p>
                 </div>
             </FooterContainer>
-            </div>
-            )}
+
+
         </PageContainer>
     )
 }
