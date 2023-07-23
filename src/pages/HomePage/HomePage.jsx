@@ -8,6 +8,7 @@ export default function HomePage(props) {
 
 
     const [movies, setMovies] = useState([])
+   
 
 
     const URL = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
@@ -37,7 +38,7 @@ export default function HomePage(props) {
     
                 <ListContainer>
                     {movies.map((movie) =>
-                        <Link to={`sessoes/${movie.id}`} key={movie.id}>
+                        <Link to={`/sessoes/${movie.id}`} key={movie.id}>
                             <MovieContainer>
                                 <img src={movie.posterURL} alt="poster" />
                             </MovieContainer>

@@ -6,7 +6,7 @@ export default function Session(props) {
 
     const { date, weekday, showtimes } = props
 
-    console.log()
+   
     return (
         <SessionContainer >
             {date} - {weekday}
@@ -18,7 +18,7 @@ export default function Session(props) {
 
                         <button >{s.name}</button>
                     </Link>
-
+        
                 )}
             </ButtonsContainer>
 

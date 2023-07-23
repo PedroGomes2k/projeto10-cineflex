@@ -6,10 +6,12 @@ import Session from "../../components/Session"
 
 export default function SessionsPage() {
 
-    const { idFilme } = useParams()
+    const  {idFilme } = useParams()
     const [session, setSession] = useState([])
     const [time, setTime] = useState([])
     const { posterURL, title } = session
+
+    
 
     useEffect(() => {
         const URL = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
@@ -43,6 +45,7 @@ export default function SessionsPage() {
                     date={t.date}
                     weekday={t.weekday}
                     showtimes={t.showtimes}
+                    
                 />
             )}
 
