@@ -38,8 +38,8 @@ export default function HomePage(props) {
     
                 <ListContainer>
                     {movies.map((movie) =>
-                        <Link to={`/sessoes/${movie.id}`} key={movie.id}>
-                            <MovieContainer>
+                        <Link to={`/sessoes/${movie.id}`} key={movie.id} data-teste="movie">
+                            <MovieContainer >
                                 <img src={movie.posterURL} alt="poster" />
                             </MovieContainer>
     

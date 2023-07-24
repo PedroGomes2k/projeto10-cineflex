@@ -6,7 +6,7 @@ export default function FooterSeat(props) {
 
 
     return (
-        <FooterContainer>
+        <FooterContainer data-test="footer" >
 
             <div>
                 <img src={movie.posterURL} alt="poster" />

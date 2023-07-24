@@ -1,45 +1,67 @@
 import { useState } from "react"
 import styled from "styled-components"
 import { Colors } from "../constantes/Colors"
+import { useEffect } from "react"
 
 export default function Seat(props) {
 
+    const { seat, choseSeat, Selected } = props
+    const { id, isAvailable, name } = seat
     const { isSelected, avilable, unAvilable } = Colors
-    const { seat, choseSeat } = props
+    const [status, setStatus] = useState("available")
 
+   
+    useEffect(() => {
+        if (Selected) {
+            setStatus("selected")
+        } else if (isAvailable) {
+            setStatus("available")
+        } else {
+            setStatus("unAvilable")
+        }
+    }, [choseSeat]
+    )
 
-    //isAvailable
 
 
     return (
 
-        <SeatsContainer>
-            {seat.map((s) =>
+        <SeatItem
 
-                <SeatItem key={s.id}  onClick={() => choseSeat(s.id)}>
-
-                    {s.name}
-                </SeatItem>
-            )}
-        </SeatsContainer>
-
-
-
+            status={status}
+            isSelected={isSelected}
+            avilable={avilable}
+            unAvilable={unAvilable}
+            onClick={() => choseSeat()}
+            data-test="seat"
+        >
+            {name}
+        </SeatItem>
 
     )
 }
-const SeatsContainer = styled.div`
-    width: 330px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-`
+
 
 const SeatItem = styled.div`
-    border: 1px solid ;
+
+    border: 1px solid ${props => {
+        if (props.status === "selected") {
+            return `${props.isSelected.border}`
+        } else if (props.status === "available") {
+            return `${props.avilable.border}`
+        } else if (props.status === "unAvilable") {
+            return `${props.unAvilable.border}`
+        }
+    }};
+    background: ${props => {
+        if (props.status === "selected") {
+            return `${props.isSelected.background}`
+        } else if (props.status === "available") {
+            return `${props.avilable.background}`
+        } else if (props.status === "unAvilable") {
+            return `${props.unAvilable.background}`
+        }
+    }};
     height: 25px;
     width: 25px;
     border-radius: 25px;
