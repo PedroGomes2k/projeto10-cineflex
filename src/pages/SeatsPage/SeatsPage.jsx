@@ -4,6 +4,9 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 import Seat from "../../components/Seat"
 import FooterSeat from "../../components/FooterSeat"
+import Form from "./Form"
+
+import Caption from "./Caption"
 
 export default function SeatsPage() {
 
@@ -12,74 +15,58 @@ export default function SeatsPage() {
     const [day, setDay] = useState([])
     const [movie, setMovie] = useState([])
     const [name, setName] = useState([])
+    
 
 
     useEffect(() => {
         const URL = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
 
 
-        URL.then((resposta) =>
-            setSeat(resposta.data.seats)
+        URL.then((res) =>
+            setSeat(res.data.seats)
         )
-        URL.then((resposta) =>
-            setName(resposta.data)
-        )
-
-        URL.then((resposta) =>
-            setDay(resposta.data.day)
+        URL.then((res) =>
+            setName(res.data)
         )
 
-        URL.then((resposta) =>
-            setMovie(resposta.data.movie)
+        URL.then((res) =>
+            setDay(res.data.day)
         )
-      
+
+        URL.then((res) =>
+            setMovie(res.data.movie)
+        )
+
         URL.catch((erro) =>
             console.log(erro.error)
         )
 
+        
+
+
     }, [])
 
     
+    function choseSeat(s){
+      if(!seat.isAvailable){
+        alert("Este ascento esta indisponivel!!")
+      } else {
+        console.log("esse esta disponivel")
+      }
+
+    }
+
+
     return (
         <PageContainer>
             Selecione o(s) assento(s)
 
 
-            <Seat 
-            seat={seat} 
-            
-            />
+            <Seat seat={seat} choseSeat={choseSeat}/>
 
+            <Caption />
 
-
-
-
-            <CaptionContainer>
-                <CaptionItem>
-                    <CaptionCircle background="#1AAE9E" border="#0E7D71" />
-                    Selecionado
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle background="#C3CFD9" border="#7B8B99" />
-                    Disponível
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle background="#FBE192" border="#F7C52B" />
-                    Indisponível
-                </CaptionItem>
-            </CaptionContainer>
-
-            <FormContainer>
-                Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
-
-                CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
-
-                <button>Reservar Assento(s)</button>
-            </FormContainer>
-
-
+            <Form />
 
             <FooterSeat
 
@@ -106,51 +93,7 @@ const PageContainer = styled.div`
     padding-bottom: 120px;
     padding-top: 70px;
 `
-const SeatsContainer = styled.div`
-    width: 330px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-`
-const FormContainer = styled.div`
-    width: calc(100vw - 40px); 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 20px 0;
-    font-size: 18px;
-    button {
-        align-self: center;
-    }
-    input {
-        width: calc(100vw - 60px);
-    }
-`
-const CaptionContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 300px;
-    justify-content: space-between;
-    margin: 20px;
-`
-const CaptionCircle = styled.div`
-    border: 1px solid ${props => `${props.border}`};         // Essa cor deve mudar
-    background-color: ${props => `${props.background}`};    // Essa cor deve mudar
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
-`
-const CaptionItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-`
+
+
+
 

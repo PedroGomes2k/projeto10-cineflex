@@ -1,14 +1,13 @@
 import { useState } from "react"
 import styled from "styled-components"
+import { Colors } from "../constantes/Colors"
 
 export default function Seat(props) {
 
-    const { seat } = props
+    const { isSelected, avilable, unAvilable } = Colors
+    const { seat, choseSeat } = props
 
-    const [background, setBackground] = useState("#C3CFD9")
-    const [border, setBorder] = useState("#7B8B99")
 
-    
     //isAvailable
 
 
@@ -17,13 +16,7 @@ export default function Seat(props) {
         <SeatsContainer>
             {seat.map((s) =>
 
-                <SeatItem
-                    key={s.id}
-                    background={background}
-                    border={border}
-                   
-                //onClick={() => teste()}
-                >
+                <SeatItem key={s.id}  onClick={() => choseSeat(s.id)}>
 
                     {s.name}
                 </SeatItem>
@@ -46,8 +39,7 @@ const SeatsContainer = styled.div`
 `
 
 const SeatItem = styled.div`
-    border: 1px solid ${props => props.border};         // Essa cor deve mudar
-    background-color:  ${props => props.background};    // Essa cor deve mudar
+    border: 1px solid ;
     height: 25px;
     width: 25px;
     border-radius: 25px;
