@@ -87,7 +87,9 @@ export default function SeatsPage() {
 
             <Caption />
 
-            <Form />
+            <Form
+                seatSelected={seatSelected}
+            />
 
             <FooterSeat
 
