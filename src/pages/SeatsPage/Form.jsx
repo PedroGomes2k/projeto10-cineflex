@@ -6,13 +6,19 @@ import { useNavigate } from "react-router-dom"
 
 export default function Form(props) {
     // https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many
-    const { seatSelected } = props
+    const { seatSelected, movie, day, time, setSuccess } = props
     const [name, setName] = useState("")
     const [cpf, setCpf] = useState("")
     const navigate = useNavigate()
 
     function buySeat(e) {
         e.preventDefault()
+
+        if (seatSelected.length === 0) {
+            alert("Selecione pelo menos um assento")
+            return
+        }
+
         const ids = seatSelected.map((s) => s.id)
 
         const URL = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
@@ -22,7 +28,21 @@ export default function Form(props) {
 
         })
 
-        URL.then(() => navigate("/sucesso"))
+        URL.then(() => {
+            setSuccess({
+                title: movie.title,
+                date: day.date,
+                time: time,
+                seats: seatSelected.map((s) => s.name),
+                name: name,
+                cpf: cpf
+            })
+            navigate("/sucesso")
+        })
+
+        URL.catch(() =>
+            alert("Não foi possível reservar o(s) assento(s), tente novamente")
+        )
 
     }
 
@@ -61,7 +81,7 @@ export default function Form(props) {
     )
 }
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
     width: calc(100vw - 40px); 
     display: flex;
     flex-direction: column;

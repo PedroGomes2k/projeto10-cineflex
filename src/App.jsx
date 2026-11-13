@@ -5,11 +5,17 @@ import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { Link, Route, BrowserRouter, Routes } from "react-router-dom"
 import { useState } from "react"
+import ResetStyle from "./style/ResetStyle"
+import GlobalStyle from "./style/GlobalStyle"
 
 export default function App() {
-    
+
+    const [success, setSuccess] = useState(undefined)
+
     return (
         <>
+            <ResetStyle />
+            <GlobalStyle />
             <BrowserRouter>
                 <Link to={"/"}>
                     <NavContainer>CINEFLEX</NavContainer>
@@ -17,8 +23,8 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<HomePage  />}></Route>
                     <Route path="/sessoes/:idFilme" element={<SessionsPage />}></Route>
-                    <Route path="/assentos/:idSessao" element={<SeatsPage />}></Route>
-                    <Route path="/sucesso" element={<SuccessPage />}></Route>
+                    <Route path="/assentos/:idSessao" element={<SeatsPage setSuccess={setSuccess} />}></Route>
+                    <Route path="/sucesso" element={<SuccessPage success={success} />}></Route>
 
                 </Routes>
 

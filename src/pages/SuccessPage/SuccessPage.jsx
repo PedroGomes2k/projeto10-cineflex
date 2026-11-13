@@ -1,31 +1,40 @@
 import styled from "styled-components"
+import { Link, Navigate } from "react-router-dom"
 
-export default function SuccessPage() {
+export default function SuccessPage(props) {
+
+    const { success } = props
+
+    if (success === undefined) {
+        return <Navigate to="/" />
+    }
 
     return (
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer>
+            <TextContainer data-test="movie-info">
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                <p>{success.title}</p>
+                <p>{success.date} - {success.time}</p>
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="seats-info">
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {success.seats.map((s) =>
+                    <p key={s}>Assento {s}</p>
+                )}
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {success.name}</p>
+                <p>CPF: {success.cpf}</p>
             </TextContainer>
 
-            <button>Voltar para Home</button>
+            <Link to="/" data-test="go-home-btn">
+                <button>Voltar para Home</button>
+            </Link>
         </PageContainer>
     )
 }

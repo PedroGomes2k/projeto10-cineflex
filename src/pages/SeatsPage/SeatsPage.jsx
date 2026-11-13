@@ -8,8 +8,9 @@ import Form from "./Form"
 
 import Caption from "./Caption"
 
-export default function SeatsPage() {
+export default function SeatsPage(props) {
 
+    const { setSuccess } = props
     const { idSessao } = useParams()
     const [seats, setSeat] = useState(undefined)
     const [seatSelected, setSeatSelected] = useState([])
@@ -89,6 +90,10 @@ export default function SeatsPage() {
 
             <Form
                 seatSelected={seatSelected}
+                movie={movie}
+                day={day}
+                time={name.name}
+                setSuccess={setSuccess}
             />
 
             <FooterSeat

@@ -7,14 +7,12 @@ export default function HomePage(props) {
 
 
 
-    const [movies, setMovies] = useState([])
-   
+    const [movies, setMovies] = useState(undefined)
 
-
-    const URL = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
 
 
     useEffect(() => {
+        const URL = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
 
         URL.then((resposta) =>
             setMovies(resposta.data)
@@ -28,7 +26,7 @@ export default function HomePage(props) {
 
     if(movies === undefined){
         return(
-           " Carregando filmes ..."
+            <PageContainer>Carregando filmes ...</PageContainer>
         )
     } else {
         return (
@@ -38,7 +36,7 @@ export default function HomePage(props) {
     
                 <ListContainer>
                     {movies.map((movie) =>
-                        <Link to={`/sessoes/${movie.id}`} key={movie.id} data-teste="movie">
+                        <Link to={`/sessoes/${movie.id}`} key={movie.id} data-test="movie">
                             <MovieContainer >
                                 <img src={movie.posterURL} alt="poster" />
                             </MovieContainer>
