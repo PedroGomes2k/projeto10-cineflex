@@ -18,7 +18,7 @@ export default function App() {
         <>
             <ResetStyle />
             <GlobalStyle />
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Link to={"/"}>
                     <NavContainer>CINEFLEX</NavContainer>
                 </Link>

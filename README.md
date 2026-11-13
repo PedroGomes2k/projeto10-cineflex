@@ -4,6 +4,8 @@ Aplicação web de **reserva de ingressos de cinema**: você escolhe o filme, a 
 
 Projeto feito em **React** durante o bootcamp da Driven, usando a API pública de testes da Driven para listar filmes, sessões e reservar assentos.
 
+### 🔗 [Acesse o projeto rodando](https://pedrogomes2k.github.io/projeto10-cineflex/)
+
 <p align="center">
   <img src="docs/screenshots/1-filmes.jpg" alt="Lista de filmes" width="200" />
   <img src="docs/screenshots/2-assentos.jpg" alt="Escolha de assentos" width="200" />
@@ -162,3 +164,15 @@ src/
 | `npm run build` | Gera a versão de produção na pasta `dist/` |
 | `npm run preview` | Serve localmente a versão gerada pelo `build` |
 | `npm run lint` | Roda o ESLint no código |
+
+---
+
+## 🌐 Deploy
+
+O site é publicado no **GitHub Pages** automaticamente a cada push na branch `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+
+1. Instala as dependências e roda o `build` com o caminho do repositório (`/projeto10-cineflex/`).
+2. Copia o `index.html` para `404.html`, para que links diretos como `/sessoes/1` também abram o app.
+3. Publica a pasta `dist/` no GitHub Pages.
+
+O andamento de cada publicação aparece na aba **Actions** do repositório.
