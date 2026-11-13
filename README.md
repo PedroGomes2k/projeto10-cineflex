@@ -4,7 +4,10 @@ Aplicação web de **reserva de ingressos de cinema**: você escolhe o filme, a 
 
 Projeto feito em **React** durante o bootcamp da Driven, usando a API pública de testes da Driven para listar filmes, sessões e reservar assentos.
 
-### 🔗 [Acesse o projeto rodando](https://pedrogomes2k.github.io/projeto10-cineflex/)
+### 🔗 Acesse o projeto rodando
+
+- **GitHub Pages:** https://pedrogomes2k.github.io/projeto10-cineflex/
+- **Vercel:** https://projeto10-cineflex-gyo5.vercel.app/
 
 <p align="center">
   <img src="docs/screenshots/1-filmes.jpg" alt="Lista de filmes" width="200" />
@@ -169,10 +172,17 @@ src/
 
 ## 🌐 Deploy
 
-O site é publicado no **GitHub Pages** automaticamente a cada push na branch `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+O site é publicado automaticamente a cada push na branch `main`, em dois lugares:
+
+**GitHub Pages**, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
 
 1. Instala as dependências e roda o `build` com o caminho do repositório (`/projeto10-cineflex/`).
 2. Copia o `index.html` para `404.html`, para que links diretos como `/sessoes/1` também abram o app.
 3. Publica a pasta `dist/` no GitHub Pages.
 
 O andamento de cada publicação aparece na aba **Actions** do repositório.
+
+**Vercel**, pela integração da Vercel com o GitHub:
+
+- O [`vercel.json`](vercel.json) redireciona todas as rotas para o `index.html`, para os links diretos funcionarem.
+- A versão do Node vem do campo `engines` do [`package.json`](package.json), que tem prioridade sobre a configuração do painel da Vercel.
