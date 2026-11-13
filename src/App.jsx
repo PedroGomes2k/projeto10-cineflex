@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import PaymentPage from "./pages/PaymentPage/PaymentPage"
 import { Link, Route, BrowserRouter, Routes } from "react-router-dom"
 import { useState } from "react"
 import ResetStyle from "./style/ResetStyle"
@@ -10,6 +11,7 @@ import GlobalStyle from "./style/GlobalStyle"
 
 export default function App() {
 
+    const [order, setOrder] = useState(undefined)
     const [success, setSuccess] = useState(undefined)
 
     return (
@@ -23,7 +25,8 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<HomePage  />}></Route>
                     <Route path="/sessoes/:idFilme" element={<SessionsPage />}></Route>
-                    <Route path="/assentos/:idSessao" element={<SeatsPage setSuccess={setSuccess} />}></Route>
+                    <Route path="/assentos/:idSessao" element={<SeatsPage setOrder={setOrder} />}></Route>
+                    <Route path="/pagamento" element={<PaymentPage order={order} setSuccess={setSuccess} />}></Route>
                     <Route path="/sucesso" element={<SuccessPage success={success} />}></Route>
 
                 </Routes>

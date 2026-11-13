@@ -10,7 +10,7 @@ import Caption from "./Caption"
 
 export default function SeatsPage(props) {
 
-    const { setSuccess } = props
+    const { setOrder } = props
     const { idSessao } = useParams()
     const [seats, setSeat] = useState(undefined)
     const [seatSelected, setSeatSelected] = useState([])
@@ -93,7 +93,7 @@ export default function SeatsPage(props) {
                 movie={movie}
                 day={day}
                 time={name.name}
-                setSuccess={setSuccess}
+                setOrder={setOrder}
             />
 
             <FooterSeat

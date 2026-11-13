@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { Link, Navigate } from "react-router-dom"
+import { formatPrice } from "../../constantes/Price"
 
 export default function SuccessPage(props) {
 
@@ -30,6 +31,12 @@ export default function SuccessPage(props) {
                 <strong><p>Comprador</p></strong>
                 <p>Nome: {success.name}</p>
                 <p>CPF: {success.cpf}</p>
+            </TextContainer>
+
+            <TextContainer data-test="payment-info">
+                <strong><p>Pagamento</p></strong>
+                <p>Cartão final {success.cardEnd}</p>
+                <p>Total: {formatPrice(success.total)}</p>
             </TextContainer>
 
             <Link to="/" data-test="go-home-btn">

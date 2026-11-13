@@ -1,12 +1,11 @@
-import axios from "axios"
 import { useState } from "react"
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 
 
 export default function Form(props) {
-    // https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many
-    const { seatSelected, movie, day, time, setSuccess } = props
+
+    const { seatSelected, movie, day, time, setOrder } = props
     const [name, setName] = useState("")
     const [cpf, setCpf] = useState("")
     const navigate = useNavigate()
@@ -19,30 +18,20 @@ export default function Form(props) {
             return
         }
 
-        const ids = seatSelected.map((s) => s.id)
-
-        const URL = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
-            ids: ids,
+        // a reserva só é feita na API depois do pagamento (PaymentPage)
+        setOrder({
+            ids: seatSelected.map((s) => s.id),
+            seats: seatSelected.map((s) => s.name),
+            title: movie.title,
+            posterURL: movie.posterURL,
+            date: day.date,
+            weekday: day.weekday,
+            time: time,
             name: name,
             cpf: cpf
-
         })
 
-        URL.then(() => {
-            setSuccess({
-                title: movie.title,
-                date: day.date,
-                time: time,
-                seats: seatSelected.map((s) => s.name),
-                name: name,
-                cpf: cpf
-            })
-            navigate("/sucesso")
-        })
-
-        URL.catch(() =>
-            alert("Não foi possível reservar o(s) assento(s), tente novamente")
-        )
+        navigate("/pagamento")
 
     }
 
@@ -74,7 +63,7 @@ export default function Form(props) {
 
             />
 
-            <button type="submit" data-test="book-seat-btn">Reservar Assento(s)</button>
+            <button type="submit" data-test="book-seat-btn">Ir para o pagamento</button>
 
         </FormContainer>
 
